@@ -1,0 +1,7 @@
+# Datos — no se suben al repositorio
+data/*.xlsx
+data/*.xls
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
