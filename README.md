@@ -1,6 +1,8 @@
 # Reto-Ternium
 
 ## Flujo de trabajo 
+IMPORTANTE: Para poder correr los código es necesario incluir el archivo "ultimos13a7meses.xlsx" manualmente en la carpeta /data, debido a que exise un .gitignore para evitar filtrar los datos de Ternium
+
 Se importan las bases de datos que fueron utilizadas a lo largo del trabajo en la carpeta de "data". 
 
 La carpeta de noteboks incluye los notebooks que fueron utilizados para la limpieza y selección de variables.
