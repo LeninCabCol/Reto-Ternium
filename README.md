@@ -9,6 +9,9 @@ La carpeta de noteboks incluye los notebooks que fueron utilizados para la limpi
 
 Todas las consultas de sql y los a
 
+## notebooks
+En esta carpeta muestra todos los codigos que se generaron para el proyecto 
+
 ### 01_limpieza
 Primer notebook corrido utilizado para limpiar los datos quitando valores nulos y seleccionando variables importantes 
 
