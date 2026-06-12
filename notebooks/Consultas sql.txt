@@ -1,0 +1,41 @@
+consultas sql:
+
+create view num_pt_hijo_cons as 
+
+SELECT CONSIGNATARIO,ARMA_TARIMA,NUMERO_PARTE_HIJO,max(PIEZAS_POR_PAQ_HIJO) as PIEZAS_POR_PAQ_HIJO ,max(PESO_MAX_DESPACHO_HIJO) as PESO_MAX_DESPACHO_HIJO ,count(NUMERO_PARTE_HIJO) as Discos_pedidos, sum(PESO_NETO_DESP) as peso_neto_total  from ultimos13a7meses
+
+where ARMA_TARIMA is not NUll and DESARMA_TARIMA is null and NUMERO_PARTE_HIJO is not NULL
+
+group by ARMA_TARIMA, NUMERO_PARTE_HIJO, CONSIGNATARIO
+
+
+
+=========================
+
+CREATE table reglas_numero_parte_hijo_consigantario as 
+
+SELECT CONSIGNATARIO,NUMERO_PARTE_HIJO, max(PIEZAS_POR_PAQ_HIJO) as PIEZAS_POR_PAQ_HIJO , max(PESO_MAX_DESPACHO_HIJO) as PESO_MAX_DESPACHO_HIJO ,max(Discos_pedidos)as max_discos,max(peso_neto_total)as maximo_peso_neto from num_pt_hijo_cons 
+
+group by NUMERO_PARTE_HIJO,CONSIGNATARIO
+
+ORDER by max_discos Desc
+
+
+=========================
+
+create view num_pt_hijo as 
+
+SELECT ARMA_TARIMA,NUMERO_PARTE_HIJO,max(PIEZAS_POR_PAQ_HIJO) as PIEZAS_POR_PAQ_HIJO , max(PESO_MAX_DESPACHO_HIJO) as PESO_MAX_DESPACHO_HIJO,count(NUMERO_PARTE_HIJO) as Discos_pedidos, sum(PESO_NETO_DESP) as peso_neto_total  from ultimos13a7meses
+where ARMA_TARIMA is not NUll and DESARMA_TARIMA is null and MATERIAL_PADRE is not NULL
+group by ARMA_TARIMA, NUMERO_PARTE_HIJO
+
+
+=========================
+
+create table reglas_numero_parte_hijo as 
+
+SELECT NUMERO_PARTE_HIJO,max(PIEZAS_POR_PAQ_HIJO) as PIEZAS_POR_PAQ_HIJO , max(PESO_MAX_DESPACHO_HIJO) as PESO_MAX_DESPACHO_HIJO,max(Discos_pedidos)as max_discos,max(peso_neto_total)as maximo_peso_neto from num_pt_hijo
+
+group by NUMERO_PARTE_HIJO
+
+ORDER by max_discos Desc
