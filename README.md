@@ -1,39 +1,49 @@
-# Reto-Ternium
+# Reto Ternium 2026
 
-## Flujo de trabajo 
-IMPORTANTE: Para poder correr los código es necesario incluir el archivo "ultimos13a7meses.xlsx" manualmente en la carpeta /data, debido a que exise un .gitignore para evitar filtrar los datos de Ternium
+Proyecto de análisis y optimización del proceso de armado de tarimas, 
+desarrollado en colaboración entre el ITESM y Ternium (enero–junio 2026).
+El objetivo es derivar reglas de armado desde el histórico de despachos 
+y proponer un algoritmo que minimice los desarmes de tarimas.
 
-Se importan las bases de datos que fueron utilizadas a lo largo del trabajo en la carpeta de "data". 
+## Requisito previo
 
-La carpeta de noteboks incluye los notebooks que fueron utilizados para la limpieza y selección de variables.
+Para poder correr los notebooks es necesario incluir manualmente el archivo
+`ultimos13a7meses.xlsx` en la carpeta `/data`. Este archivo no está en el 
+repositorio para evitar filtrar datos confidenciales de Ternium a personas 
+no autorizadas. Por la misma razón, la carpeta `/outputs` se encuentra vacía 
+— el `.gitignore` impide que los archivos generados se suban al repositorio.
 
-Todas las consultas de sql y los a
+## Flujo de trabajo
 
-## notebooks
-En esta carpeta muestra todos los codigos que se generaron para el proyecto 
+Los notebooks deben correrse en el siguiente orden:
 
-### 01_limpieza
-Primer notebook corrido utilizado para limpiar los datos quitando valores nulos y seleccionando variables importantes 
+1. `01_limpieza` — Limpieza de datos: eliminación de valores nulos y 
+   selección de variables relevantes para el análisis.
+2. `02_vista_tarimas` — Agrupación de cintas por tarima y creación de 
+   variables para los modelos.
+3. `Modelado_01` — Modelos de machine learning para identificar los factores 
+   asociados al desarme de tarimas.
+4. `Script_definir_maximos_reglas` — Derivación de las reglas de armado 
+   (peso máximo y número máximo de cintas por tarima) a partir de consultas 
+   SQL sobre el histórico. Este archivo se trabajo aparte del repositorio y unicamente se adjunta en el mismo como evidencia del trabajo. Se adjunta el output de este código con otro nombre, "num_parte_hijo_consignatario.csv" a la carpeta de /data para correr el algoritmo heuristico.
+5. `heuristicaCodigo` — Algoritmo heurístico greedy para el armado óptimo 
+   de tarimas respetando todas las restricciones operativas.
 
-### 02_vista_tarimas
-Notebook donde se agrupo cintas por tarima y se crearon variables relevantes para los modelos 
+Las consultas SQL utilizadas para derivar las reglas de armado están 
+documentadas en `notebooks/Consultas_sql.txt`.
 
-### Modelado (01)
-Presenta los distintos modelos de ML utilizados para identificar las razones del desarme de tarimas
+## Estructura del repositorio
 
-### heuristicaCodigo
-Presenta el código con el algoritmo greedy para el armado de tarimas 
+### `/data`
+Carpeta de datos de entrada. Es necesario colocar aquí el archivo 
+`ultimos13a7meses.xlsx` antes de correr cualquier notebook.
 
-### Script_definir_maximos_reglas 
-Codigo en python para definir reglas obtenidas con consultas sql 
+### `/notebooks`
+Contiene todos los notebooks y scripts del proyecto. Ver el flujo de 
+trabajo descrito arriba para el orden de ejecución.
 
-### Consultas sql
-Archivo de texto donde muestra los querys usados para el proyecto
-
-
-## data
-Es necesario adjuntar el el archivo "ultimos13a7meses.xlsx" en esta carpeta para poder correr los codigos
-
-## outputs
-En esta carpeta se guardan todos los outputs de los codigos que van a ser utilizados en otros codigos. Se presenta el acomodo en base a las reglas en el archivo heuristica_tarimos.csv 
-
+### `/outputs`
+Carpeta donde se guardan los archivos generados por cada notebook, 
+los cuales son utilizados como input por los notebooks siguientes. 
+El archivo `heuristica_tarimas.csv` contiene el armado de tarimas 
+propuesto por el algoritmo en base a las reglas derivadas.
